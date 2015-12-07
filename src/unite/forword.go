@@ -21,8 +21,6 @@ func logerr (addr string, err error) {
 type Forwarder struct {
 	addr    string
 	remotes []string
-	//failed_remotes []string
-	//mutex          sync.Mutex
 	reporterr ErrorCallback
 }
 
