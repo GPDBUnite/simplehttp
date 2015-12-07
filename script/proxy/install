@@ -1,0 +1,2 @@
+go get github.com/google/martian
+go install github.com/google/martian/cmd/proxy
