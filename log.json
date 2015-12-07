@@ -1,0 +1,7 @@
+{
+    "log.Logger": {
+        "scope": ["request", "response"],
+	"headersOnly": true,
+        "decode": true
+    }
+}
