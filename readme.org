@@ -1,0 +1,14 @@
+* Feature
+- serve static file according to config file
+- provide simple return format for direcotry list
+- UDP server to receive log message
+- provide script of martian proxy
+
+** config format
+#+BEGIN_SRC ini
+[static]
+s3=/opt/testdata
+cache=/opt/cache
+#+END_SRC
+
+* Proxy

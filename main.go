@@ -58,7 +58,7 @@ func main() {
 		path := fmt.Sprintf("/%s/", k)
 		http.Handle(path, http.StripPrefix(path, http.FileServer(http.Dir(items[k]))))
 		path = fmt.Sprintf("/%s", k)
-		http.Handle(path, unite.FileSummaryServer(items[k]))
+		http.Handle(path, unite.FileSummaryServer(items[k], k))
 
 	}
 
@@ -75,5 +75,5 @@ func main() {
 	}
 
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil)
 }
