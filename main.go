@@ -3,6 +3,7 @@ package main
 import (
 	_ "bufio"
 	"fmt"
+	"log"
 	"flag"
 	"html/template"
 	_ "io"
@@ -36,15 +37,17 @@ func init() {
 
 func main() {
 	flag.Parse()
-	fmt.Println(logserver)
+	if logserver {
+		go unite.UDPLogServer(1111, "127.0.0.1")
+	}
+
 	data := struct {
 		Items []string
 	}{
 		Items: []string{},
 	}
 
-	filename := `file.ini`
-	c := unite.ParseConfig(filename)
+	c := unite.ParseConfig(configpath)
 
 	items := c["static"]
 
@@ -75,5 +78,5 @@ func main() {
 	}
 
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":80", nil)
+	log.Fatal(http.ListenAndServe(":80", nil))
 }
