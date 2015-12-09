@@ -11,6 +11,7 @@ import (
 	"net/http"
 	_ "strings"
     "unite"
+	"strconv"
 )
 
 const tpl = `
@@ -37,9 +38,6 @@ func init() {
 
 func main() {
 	flag.Parse()
-	if logserver {
-		go unite.UDPLogServer(1111, "127.0.0.1")
-	}
 
 	data := struct {
 		Items []string
@@ -48,6 +46,19 @@ func main() {
 	}
 
 	c := unite.ParseConfig(configpath)
+
+	if logserver {
+		val := c.GetConfig("log", "port", "1111")
+		loghost := c.GetConfig("log", "host", "127.0.0.1")
+		port, err := strconv.Atoi(val)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(2)
+		}
+		//fmt.Println(loghost)
+		//fmt.Println(val)
+		go unite.UDPLogServer(port, loghost)	
+	}
 
 	items := c["static"]
 
@@ -71,7 +82,7 @@ func main() {
 		return
 	}
 	
-	fmt.Printf("reload config: kill -SIGHUP %d\n", os.Getpid())
+	//fmt.Printf("reload config: kill -SIGHUP %d\n", os.Getpid())
 
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		_ = t.Execute(w, data)

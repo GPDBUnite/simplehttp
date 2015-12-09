@@ -1,6 +1,6 @@
 * Feature
 - serve static file according to config file
-- provide simple return format for direcotry list
+- provide simple s3 like return format for direcotry list
 - UDP server to receive log message
 - provide script of martian proxy
 
@@ -9,6 +9,18 @@
 [static]
 s3=/opt/testdata
 cache=/opt/cache
+[log]
+host=1.2.3.4
+port=3333
 #+END_SRC
 
 * Proxy
+** install
+   #+BEGIN_SRC shell
+   script/proxy/install   
+   #+END_SRC
+
+** enable detail log
+
+** further information
+https://github.com/google/martian
