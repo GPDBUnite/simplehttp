@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/unite"
+	"github.com/GPDBUnite/unite"
 	_ "bufio"
 	"flag"
 	"fmt"
