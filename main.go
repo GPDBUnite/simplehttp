@@ -1,6 +1,7 @@
 package main
 
 import (
+	"./src/unite"
 	_ "bufio"
 	"flag"
 	"fmt"
@@ -11,7 +12,6 @@ import (
 	"os"
 	"strconv"
 	_ "strings"
-	"unite"
 )
 
 const tpl = `
