@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./src/unite"
+	"github.com/unite"
 	_ "bufio"
 	"flag"
 	"fmt"
