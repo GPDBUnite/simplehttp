@@ -2,16 +2,16 @@ package main
 
 import (
 	_ "bufio"
-	"fmt"
-	"log"
 	"flag"
+	"fmt"
 	"html/template"
 	_ "io"
-	"os"
+	"log"
 	"net/http"
-	_ "strings"
-    "unite"
+	"os"
 	"strconv"
+	_ "strings"
+	"unite"
 )
 
 const tpl = `
@@ -29,10 +29,10 @@ const tpl = `
 </html>`
 
 var configpath string
-var logserver  bool
+var logserver bool
 
 func init() {
-    flag.StringVar(&configpath, "f", "file.ini", "config file path")
+	flag.StringVar(&configpath, "f", "file.ini", "config file path")
 	flag.BoolVar(&logserver, "l", false, "log server")
 }
 
@@ -57,7 +57,7 @@ func main() {
 		}
 		//fmt.Println(loghost)
 		//fmt.Println(val)
-		go unite.UDPLogServer(port, loghost)	
+		go unite.UDPLogServer(port, loghost)
 	}
 
 	items := c["static"]
@@ -81,7 +81,7 @@ func main() {
 		fmt.Print(err)
 		return
 	}
-	
+
 	//fmt.Printf("reload config: kill -SIGHUP %d\n", os.Getpid())
 
 	handler := func(w http.ResponseWriter, r *http.Request) {

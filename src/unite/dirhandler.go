@@ -1,14 +1,13 @@
 package unite
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 	"path/filepath"
 )
 
-
 type FileSummary struct {
-	root string
+	root   string
 	bucket string
 }
 
@@ -32,22 +31,22 @@ func (f *FileSummary) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		for _, d := range dirs {
 			name := d.Name()
-			
+
 			if d.IsDir() {
 				continue
 			}
-			fullpath := filepath.Join(f.root,name)
+			fullpath := filepath.Join(f.root, name)
 			size, err := FileSize(fullpath)
 			if err == nil {
 				fmt.Fprintf(w, "<Contents>")
-				fmt.Fprintf(w, "<Key>%s</Key>",name)
+				fmt.Fprintf(w, "<Key>%s</Key>", name)
 				fmt.Fprintf(w, "<Size>%d</Size>", size)
 				fmt.Fprintf(w, "</Contents>")
 			}
 		}
 	}
 	fmt.Fprintf(w, "</ListBucketResult>")
-	
+
 }
 
 func FileSummaryServer(root string, bucket string) http.Handler {

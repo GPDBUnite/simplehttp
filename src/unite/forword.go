@@ -12,22 +12,23 @@ import (
 
 type ErrorCallback func(addr string, err error)
 
-func logerr (addr string, err error) {
-     fmt.Println(addr)
-     fmt.Println(err)
+func logerr(addr string, err error) {
+	fmt.Println(addr)
+	fmt.Println(err)
 }
 
-
 type Forwarder struct {
-	addr    string
-	remotes []string
+	addr      string
+	remotes   []string
 	reporterr ErrorCallback
 }
 
 func NewForwarder(listenaddr string, toaddrs []string, errorcb ErrorCallback) *Forwarder {
 	var ret = Forwarder{}
-    if errorcb == nil { errorcb = logerr }
-    ret.reporterr = errorcb
+	if errorcb == nil {
+		errorcb = logerr
+	}
+	ret.reporterr = errorcb
 	ret.addr = listenaddr
 	ret.remotes = toaddrs
 	return &ret

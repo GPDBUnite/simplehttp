@@ -1,11 +1,11 @@
 package unite
 
 import (
-       "fmt"    
-       "io"     
-       "os"
-       "strings"
-       "bufio"
+	"bufio"
+	"fmt"
+	"io"
+	"os"
+	"strings"
 )
 
 type Config map[string]string
@@ -23,14 +23,14 @@ func ParseConfig(filename string) ConfigSet {
 	}
 	defer f.Close()
 	r := bufio.NewReader(f)
-    var line string 
+	var line string
 	for err == nil {
 		line, err = r.ReadString('\n')
-        // fmt.Printf("%s",line)
-        if strings.HasPrefix(line, "#") {
-           // comments, skip
-           continue
-        }
+		// fmt.Printf("%s",line)
+		if strings.HasPrefix(line, "#") {
+			// comments, skip
+			continue
+		}
 		if strings.HasPrefix(line, "[") {
 			ret[configname] = c
 			i := strings.LastIndex(line, "]")
@@ -38,11 +38,11 @@ func ParseConfig(filename string) ConfigSet {
 			c = make(Config)
 		} else {
 			s := strings.SplitN(line, "=", 2)
-            if len(s) < 2 {
-               // bad format, skip? quit?
-               // fmt.Printf("skip %s\n", line)
-               continue
-            }
+			if len(s) < 2 {
+				// bad format, skip? quit?
+				// fmt.Printf("skip %s\n", line)
+				continue
+			}
 			c[strings.TrimRight(s[0], "\t ")] = strings.TrimRight(s[1], "\r\n ")
 		}
 	}

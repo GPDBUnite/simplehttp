@@ -22,4 +22,3 @@ func FileSize(file string) (int64, error) {
 	}
 	return f.Size(), nil
 }
-

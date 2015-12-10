@@ -1,24 +1,24 @@
 package unite
 
 import (
-	"net"
 	"fmt"
+	"net"
 )
 
 func UDPLogServer(port int, host string) {
 
 	addr := net.UDPAddr{
 		Port: port,
-		IP: net.ParseIP(host),
-    }
+		IP:   net.ParseIP(host),
+	}
 	//fmt.Println(addr)
-    conn, err := net.ListenUDP("udp", &addr)
+	conn, err := net.ListenUDP("udp", &addr)
 
-    if err != nil {
-        fmt.Println(err)
+	if err != nil {
+		fmt.Println(err)
 		return
-    }
-    defer conn.Close()
+	}
+	defer conn.Close()
 	for {
 		buf := make([]byte, 1024)
 		rlen, _, err := conn.ReadFromUDP(buf)
