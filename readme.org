@@ -14,6 +14,13 @@ host=1.2.3.4
 port=3333
 #+END_SRC
 
+** Install and run command
+#+BEGIN_SRC shell
+go get github.com/GPDBUnite/unite
+go install github.com/GPDBUnite/unite/cmd/uniteserver
+sudo $GOBIN/uniteserver -l
+#+END_SRC
+
 * Proxy
 ** install
    #+BEGIN_SRC shell
