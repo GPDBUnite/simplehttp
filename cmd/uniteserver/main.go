@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/GPDBUnite/unite"
+	"github.com/lij55/unite"
 	_ "bufio"
 	"flag"
 	"fmt"
@@ -30,10 +30,15 @@ const tpl = `
 
 var configpath string
 var logserver bool
+var s3list bool
+var mdlist bool
+
 
 func init() {
 	flag.StringVar(&configpath, "f", "file.ini", "config file path")
 	flag.BoolVar(&logserver, "l", false, "log server")
+  s3list = true
+  mdlist = true
 }
 
 func main() {
@@ -71,10 +76,21 @@ func main() {
 		data.Items = append(data.Items, k)
 		path := fmt.Sprintf("/%s/", k)
 		http.Handle(path, http.StripPrefix(path, http.FileServer(http.Dir(items[k]))))
-		path = fmt.Sprintf("/%s", k)
-		http.Handle(path, unite.FileSummaryServer(items[k], k))
-
+    if s3list {
+		   path = fmt.Sprintf("/%s", k)
+		   http.Handle(path, unite.FileSummaryServer(items[k], k))
+    }
 	}
+
+  items = c["markdown"]
+  for k := range items {
+      ok, _ := unite.FileExists(items[k])
+      if !ok {
+         fmt.Printf("skip %s, not exist\n",k)
+         continue
+      }
+      http.Handle(path, http.StripPrefix(path, unite.MarkDownHandler(items[k])))
+  }
 
 	t, err := template.New("webpage").Parse(tpl)
 	if err != nil {
